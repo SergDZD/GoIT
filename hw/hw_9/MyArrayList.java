@@ -67,5 +67,4 @@ public class MyArrayList<E> {
         test.remove(5);
         test.clear();
     }
-
 }
