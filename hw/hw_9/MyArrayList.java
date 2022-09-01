@@ -1,4 +1,3 @@
-
 package com.hw.hw_9;
 
 public class MyArrayList<E> {
