@@ -3,84 +3,83 @@ package com.hw.hw_9;
 public class MyLinkedList<E> {
     private int size;
     private Node firstNode;
-    private Node currentNode;
+    private Node lastNode;
 
     class Node {
         private Node prevNode;
         private Node nextNode;
-        private Object currentObject;
+        private Object value;
 
-        public Node(Node prevNode, Node nextNode, Object currentObject) {
+        Node(Node prevNode, Node nextNode, Object currentObject) {
             this.prevNode = prevNode;
             this.nextNode = nextNode;
-            this.currentObject = currentObject;
+            this.value = currentObject;
         }
 
-        public void setPrevNode(Node prevNode) {
+        void setPrevNode(Node prevNode) {
             this.prevNode = prevNode;
         }
 
-        public void setNextNode(Node nextNode) {
+        void setNextNode(Node nextNode) {
             this.nextNode = nextNode;
         }
 
-        public Node next(){
+        Node next(){
             return nextNode;
         }
 
-        public Node prev(){
+        Node prev(){
             return prevNode;
         }
 
-        public E getObject(){
-            return (E)currentObject;
+        E getObject(){
+            return (E) value;
         }
 
-        public void deleteObject(){
-            currentObject = null;
+        void clearNode(){
+            value = null;
+            prevNode = null;
+            nextNode = null;
         }
     }
 
-    public void add(Object object){
-        Node newNode;
+    public void add(Object value){
+        if(size == Integer.MAX_VALUE) throw new RuntimeException("LinkedList is full");
         if(size == 0){
-            newNode = new Node(null, null, object);
-            firstNode = newNode;
+            firstNode = lastNode = new Node(null, null, value);
         } else {
-            newNode = new Node(currentNode, null, object);
-            currentNode.setNextNode(newNode);
+            Node node = new Node(lastNode, null, value);
+            lastNode.setNextNode(node);
+            node.setPrevNode(lastNode);
+            lastNode = node;
         }
-        currentNode = newNode;
         size++;
     }
 
     public void remove(int index){
         if(index >= 0 && index < size){
             int i = 0;
-            Node searchNode = firstNode;
+            Node node = firstNode;
             while(i != index){
-                searchNode = searchNode.next();
+                node = node.next();
                 i++;
             }
-            searchNode.prev().setNextNode(searchNode.next());
-            searchNode.next().setPrevNode(searchNode.prev());
-            searchNode.deleteObject();
-            searchNode = null;
+            node.prev().setNextNode(node.next());
+            node.next().setPrevNode(node.prev());
+            node.clearNode();
+            node = null;
             size--;
-        }
+        } else throw new ArrayIndexOutOfBoundsException();
     }
 
     public void clear(){
-        Node tempNextNode;
-        Node tempCurrentNode = firstNode.next();
+        Node nextNode = firstNode;
+        Node node;
         firstNode = null;
-        firstNode.deleteObject();
-        firstNode.setNextNode(null);
-        for (int i = 1; i < size; i++) {
-            tempNextNode = tempCurrentNode.next();
-            currentNode.setNextNode(null);
-            currentNode.setPrevNode(null);
-            currentNode.deleteObject();
+        for (int i = 0; i < size; i++) {
+            node = nextNode;
+            nextNode = node.next();
+            node.clearNode();
         }
         size = 0;
     }
@@ -123,8 +122,12 @@ public class MyLinkedList<E> {
         testMyLinkedList.add("text9");
         testMyLinkedList.add("text10");
         testMyLinkedList.add("text11");
-        System.out.println(testMyLinkedList.get(5));
+        System.out.println(testMyLinkedList.get(6));
+        System.out.println("size is " + testMyLinkedList.size());
         testMyLinkedList.remove(5);
+        System.out.println("size is " + testMyLinkedList.size());
+        //testMyLinkedList.remove(12); //ArrayIndexOutOfBoundsException
         testMyLinkedList.clear();
+        System.out.println("size is " + testMyLinkedList.size());
     }
 }

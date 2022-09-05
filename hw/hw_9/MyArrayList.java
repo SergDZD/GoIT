@@ -7,20 +7,18 @@ public class MyArrayList<E> {
     private int size;
 
 
-    public boolean add(Object value){
-        Object[] newArrayList = new Object[size + INIT_SIZE];
-        if(size == MAX_SIZE) return false;
+    public void add(Object value){
+        if(size == MAX_SIZE) throw new ArrayIndexOutOfBoundsException();
         if(size == arrayList.length){
+            Object[] newArrayList = new Object[size + INIT_SIZE];
             System.arraycopy(arrayList, 0, newArrayList, 0, size);
             arrayList = newArrayList;
         }
         arrayList[size++] = value;
-        return true;
     }
 
     public void remove(int index){
         if(index >= size && index < 0) throw new ArrayIndexOutOfBoundsException();
-        //System.arraycopy(a);
         for(int i = index + 1; i < size; i++){
             arrayList[i - 1] = arrayList[i];
         }

@@ -7,7 +7,7 @@ public class MyQueue <E> {
     private int size;
 
     public void add(Object value){
-        if (size == MAX_SIZE) throw new ArrayIndexOutOfBoundsException("The maximum queue size has been reached");
+        if (size == MAX_SIZE) throw new RuntimeException("Queue is full");
         else {
             if (size == arrayQueue.length){
                 Object[] newQueue = new Object[arrayQueue.length + INIT_SIZE];
@@ -18,8 +18,12 @@ public class MyQueue <E> {
         }
     }
 
-    public boolean remove(int index){
-        return true;
+    public void remove(int index){
+        if(index >=0 && index < size){
+            System.arraycopy(arrayQueue, 1, arrayQueue, index, --size - index);
+            arrayQueue[size] = null;
+        }
+        throw new ArrayIndexOutOfBoundsException();
     }
 
     public void clear(){
@@ -34,17 +38,17 @@ public class MyQueue <E> {
         return size;
     }
     public E peek() {
-        if (size > 0) return (E) arrayQueue[0];
-        else return null;
+        if (size == 0) throw new RuntimeException("Queue is empty");
+        else return (E) arrayQueue[0];
     }
     public E poll() {
-        if (size > 0) {
+        if (size == 0) throw new RuntimeException("Queue is empty");
+        else {
             Object object = arrayQueue[0];
             System.arraycopy(arrayQueue, 1, arrayQueue, 0, --size);
             arrayQueue[size] = null;
             return (E) object;
         }
-        else return null;
     }
 
     /*Написати свій клас MyQueue як аналог класу Queue, який буде працювати по принципу FIFO (first-in-first-out).
