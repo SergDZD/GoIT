@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-public class Task_1_2 {
+public class Task_1_5 {
     public static void main(String[] args) {
         List<String> names = new ArrayList<>() {};
         names.add("name0");

@@ -2,6 +2,8 @@ package com.hw.hw_10.task_2;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -24,6 +26,7 @@ public class Task_2 {
             scan.close();
             Gson gson = new Gson();
             String strJson = gson.toJson(listUser);
+            JsonArray array = JsonParser.parseString(strJson).getAsJsonArray();
             FileWriter fileWriter = new FileWriter(outFile);
             fileWriter.write(strJson);
             fileWriter.close();
