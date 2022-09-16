@@ -1,6 +1,9 @@
 package com.hw.hw_13;
 
+import java.util.List;
+
 public class User {
+    private long id;
     private String name;
     private String username;
     private String email;
@@ -8,6 +11,14 @@ public class User {
     private String website;
     private Address address;
     private Company company;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -78,6 +89,7 @@ public class User {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("id: " + id + "\n");
         stringBuilder.append("name: " + name + "\n");
         stringBuilder.append("username: " + username + "\n");
         stringBuilder.append("email: " + email + "\n");
@@ -94,25 +106,4 @@ public class User {
         stringBuilder.append("company bs: " + company.getBs() + "\n");
         return stringBuilder.toString();
     }
-
-    /*"id": 9,
-    "name: " +Glenna Reichert",
-    "username: " +Delphine",
-    "email: " +Chaim_McDermott@dana.io",
-    "address": {
-      "street: " +Dayna Park",
-      "suite: " +Suite 449",
-      "city: " +Bartholomebury",
-      "zipcode: " +76495-3109",
-      "geo": {
-        "lat: " +24.6463",
-        "lng: " +-168.8889"
-      }
-    },
-    "phone: " +(775)976-6794 x41206",
-    "website: " +conrad.com",
-    "company": {
-      "name: " +Yost and Sons",
-      "catchPhrase: " +Switchable contextually-based project",
-      "bs: " +aggregate real-time technologies"*/
 }
